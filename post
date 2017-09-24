@@ -1,0 +1,26 @@
+Update is also possible using POST command.
+Elasticsearch POST and PUT work the same but in POST Easlticsearch reterives the document, changes and reindexes the document.
+So again this means documents are immutable.
+
+"doc" is wrapped around.
+
+POST /vehicles/car/123/_update
+{
+  "doc":{
+
+  "price":20000.97
+  }
+}
+
+{
+  "_index": "vehicles",
+  "_type": "car",
+  "_id": "123",
+  "_version": 5,
+  "result": "updated",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  }
+}

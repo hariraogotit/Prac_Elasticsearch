@@ -1,0 +1,7 @@
+
+HEAD :- Confirms if the doc exists with out reteriving the doc
+
+HEAD /vehicles/car/123
+Response - 200 - OK
+HEAD /vehicles/car/124
+Response - 404 - Not Found

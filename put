@@ -1,0 +1,71 @@
+Request
+
+If the id 123 is not given then elasticsearch will create one on its own
+
+PUT /vehicles/car/123
+{
+  "make":"Honda",
+  "Color":"Black",
+  "HP":250,
+  "milage":24000,
+  "price":19300.97
+}
+
+Response
+
+{
+  "_index": "vehicles",
+  "_type": "car",
+  "_id": "123",
+  "_version": 1,
+  "result": "created",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "created": true
+}
+
+Same when ran again. Created becomes false and version is updated to 2
+
+{
+  "_index": "vehicles",
+  "_type": "car",
+  "_id": "123",
+  "_version": 2,
+  "result": "updated",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "created": false
+}
+
+Documents are immutable :- i.e if a document is updated an entire document is created although the created (indexed) shows false
+
+PUT /vehicles/car/123
+{
+  "make":"Honda",
+  "Color":"Black",
+  "HP":250,
+  "milage":25000, // Milage is updated
+  "price":19300.97
+}
+
+Response
+
+{
+  "_index": "vehicles",
+  "_type": "car",
+  "_id": "123",
+  "_version": 4,
+  "result": "updated",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "created": false
+}

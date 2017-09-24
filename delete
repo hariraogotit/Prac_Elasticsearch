@@ -1,0 +1,72 @@
+When a document is deleted. It is marked as deleted. Every so often behind the scene elasticsearch collects are the docs marked as
+delete and completly wipes out of the disc.
+
+DELETE /vehicles/car/123
+
+Response
+
+{
+  "found": true,
+  "_index": "vehicles",
+  "_type": "car",
+  "_id": "123",
+  "_version": 6,
+  "result": "deleted",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  }
+}
+
+GET /vehicles/car/123
+
+{
+  "_index": "vehicles",
+  "_type": "car",
+  "_id": "123",
+  "found": false
+}
+
+DELETE /vehicles/car
+
+Response:
+No handler found for uri [/vehicles/car] and method [DELETE]
+
+Since the car does not have any documents it says the above. Had the car had some docs then the above operation of deleting a Type (Table)
+would have been possible.
+
+
+DELETE /vehicles
+
+Response :-
+
+{
+  "acknowledged": true
+}
+
+GET /vehicles
+
+Response
+
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "index_not_found_exception",
+        "reason": "no such index",
+        "resource.type": "index_or_alias",
+        "resource.id": "vehicles",
+        "index_uuid": "_na_",
+        "index": "vehicles"
+      }
+    ],
+    "type": "index_not_found_exception",
+    "reason": "no such index",
+    "resource.type": "index_or_alias",
+    "resource.id": "vehicles",
+    "index_uuid": "_na_",
+    "index": "vehicles"
+  },
+  "status": 404 // Not found
+}

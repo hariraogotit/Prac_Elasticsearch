@@ -1,0 +1,104 @@
+GET /vehicles/car/123
+
+Response
+
+{
+  "_index": "vehicles",
+  "_type": "car",
+  "_id": "123",
+  "_version": 2,
+  "found": true,
+  "_source": {
+    "make": "Honda",
+    "Color": "Black",
+    "HP": 250,
+    "milage": 24000,
+    "price": 19300.97
+  }
+}
+
+The following fields are added by elasticsearch
+
+"_index": "vehicles",
+"_type": "car",
+"_id": "123",
+"_version": 2,
+
+If we just want source and not the above fields then
+
+GET /vehicles/car/123/_source
+
+{
+  "make": "Honda",
+  "Color": "Black",
+  "HP": 250,
+  "milage": 24000,
+  "price": 19300.97
+}
+
+GET /vehicles/car/124
+
+{
+  "_index": "vehicles",
+  "_type": "car",
+  "_id": "124",
+  "found": false
+}
+
+Found is false as no doc of id 124 exsist.
+
+
+GET /vehicles
+
+The following was not created by us but based the document that we inserted elasticsearch constructed the below
+
+{
+  "vehicles": {
+    "aliases": {},
+    "mappings": {
+      "car": {
+        "properties": {
+          "Color": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "HP": {
+            "type": "long"
+          },
+          "make": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "milage": {
+            "type": "long"
+          },
+          "price": {
+            "type": "float"
+          }
+        }
+      }
+    },
+    "settings": {
+      "index": {
+        "creation_date": "1506259267970",
+        "number_of_shards": "5",
+        "number_of_replicas": "1",
+        "uuid": "61tqM8OzQrqRevVZL8QmRQ",
+        "version": {
+          "created": "5060199"
+        },
+        "provided_name": "vehicles"
+      }
+    }
+  }
+}
