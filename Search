@@ -1,0 +1,42 @@
+Brings back all the documents
+GET courses/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+Brings back the docs with the name Computer.
+GET courses/_search
+{
+  "query": {
+    "match": {
+      "name": "Computer"
+    }
+  }
+}
+
+All the docs with field professor.email exist are brought back (It does not check
+for value of the email but just the field. So the below will
+also bring back the doc if it has the below feild with no value)
+GET courses/_search
+{
+  "query": {
+    "exists": {
+      "field" : "professor.email"
+    }
+  }
+}
+
+The below explains how AND condition can be constructed.
+GET courses/_search
+{
+  "query": {
+    "bool":{
+      "must":[
+        {"match":{"name":"computer"}},
+        {"match":{"room":"C8"}}
+        ]
+    }
+  }
+}
